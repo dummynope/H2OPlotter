@@ -1,0 +1,28 @@
+<Project>
+    <PropertyGroup>
+       
+        <InformationalVersion>2023.DevBuild</InformationalVersion>
+        <!-- AssemblyVersion has no real use except that it also propagates to file version and so used by installer
+        to check if a file needs to be updated. So our build script replaces 4th segment with build number. It 
+         also copies the AssemblyVersion number from InvestigatorServer.Primitives which is our data contract version number
+         Please note that the grpc contract projects override AssemblyVersion to put in the grpc contract versions! -->
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+
+        <!--Framework-->
+        <LangVersion>default</LangVersion>
+        <TargetFramework>net7.0</TargetFramework>
+
+        <!--Code Quality-->
+        <Nullable>enable</Nullable>
+		<Features>strict</Features>
+		<AnalysisLevel>latest</AnalysisLevel>
+		<WarningLevel>9999</WarningLevel>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisMode>All</AnalysisMode>
+        <AnalysisLevelStyle>latest-All</AnalysisLevelStyle>
+    </PropertyGroup>
+
+
+</Project>

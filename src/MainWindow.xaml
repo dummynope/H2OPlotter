@@ -1,0 +1,96 @@
+<Window x:Class="H2MassPercentPlotter.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:H2MassPercentPlotter"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:H2Calc}"
+        Title="H2MassPercentPlotter" Height="450" Width="1200">
+    <DockPanel Margin="10" LastChildFill="true">
+
+        <ScrollViewer DockPanel.Dock="Left">
+            <Grid>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="50*"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox  x:Name="BottomPartContentOverlappingTheImage"/>
+
+                    <DataGrid Grid.Row="0" Name="Dg1" ItemsSource="{Binding Records}" AutoGenerateColumns="False" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Pre Dehy [Bar]"  Binding="{Binding Path=Pre_Dehydrogenation, StringFormat={}{0:0.000}}"/>
+                            <DataGridTextColumn Header="Post Dehy [Bar]"  Binding="{Binding Path=Post_Dehydrogenation, StringFormat={}{0:0.000}}"/>
+                            <DataGridTextColumn Header="T AC Dehy [°C]"  Binding="{Binding Path=T_AC_dehy, StringFormat={}{0:0.000}}"/>
+                            <DataGridTextColumn Header="T Res [°C]"  Binding="{Binding Path=T_Res, StringFormat={}{0:0.000}}"/>
+                            <DataGridTextColumn Foreground="DarkGreen" Header="Name"  Binding="{Binding Path=Name}"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBox Grid.Row="1" TextWrapping="Wrap" x:Name="logBox"
+                                         AcceptsReturn="True">
+                    </TextBox>
+                </Grid>
+
+            </Grid>
+
+        </ScrollViewer>
+
+        <StackPanel Margin="10,0,0,0" Grid.IsSharedSizeScope="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="FirstColumn"/>
+                    <ColumnDefinition SharedSizeGroup="SecondColumn"/>
+                </Grid.ColumnDefinitions>
+                <Label FontWeight="Bold" >R_H2 [J/g*K]</Label>
+                <Label Grid.Column="1" Width="120" Content="{Binding Path=R_H2, Mode=OneTime}"></Label>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="FirstColumn"/>
+                    <ColumnDefinition SharedSizeGroup="SecondColumn"/>
+                </Grid.ColumnDefinitions>
+                <Label FontWeight="Bold"  >mass Mg Fe [g]</Label>
+                <TextBox Grid.Column="1" Text="{Binding Path=mass_MgFe}"></TextBox>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="FirstColumn"/>
+                    <ColumnDefinition SharedSizeGroup="SecondColumn"/>
+                </Grid.ColumnDefinitions>
+                <Label   FontWeight="Bold">vol_AC [l]</Label>
+                <TextBox Grid.Column="1"   Text="{Binding Path=vol_AC}"></TextBox>
+            </Grid>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="FirstColumn"/>
+                    <ColumnDefinition SharedSizeGroup="SecondColumn"/>
+                </Grid.ColumnDefinitions>
+                <Label   FontWeight="Bold">vol_Res [l]</Label>
+                <TextBox Grid.Column="1"   Text="{Binding Path=vol_Res}"></TextBox>
+            </Grid>
+
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <Button DockPanel.Dock="Bottom" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ButtonBase_Save"/>
+                <Button DockPanel.Dock="Bottom" Margin="10,0,0,0" Content="Load" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ButtonBase_Load"/>
+            </StackPanel>
+
+            <StackPanel Margin="5" Orientation="Vertical">
+
+                <CheckBox Margin="0,0,0,0" x:Name="Crosshair">Show Crosshair</CheckBox>
+                <CheckBox Margin="0,0,0,0" x:Name="Labels">Show Labels</CheckBox>
+                <Button Margin="0,10,0,0" Content="Calc and Plot" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ButtonBase_OnClick"/>
+
+            </StackPanel>
+
+
+        </StackPanel>
+
+        <WpfPlot MouseMove="WpfPlot1_OnMouseMove" x:Name="WpfPlot1" />
+    </DockPanel>
+</Window>
